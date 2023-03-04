@@ -85,6 +85,18 @@ namespace L01_2020MC601.Controllers
             return Ok(plato);
         }
 
+        [HttpGet]
+        [Route("FindByPrecio/{precio}")]
 
+        public IActionResult FindByPrecio(decimal precio)
+        {
+            List<platos> listadoPlatos = (from e in _restaurenteDBcontext.platos where e.precio < precio select e).ToList();
+
+            if (listadoPlatos == null)
+            {
+                return NotFound();
+            }
+            return Ok(listadoPlatos);
+        }
     }
 }
